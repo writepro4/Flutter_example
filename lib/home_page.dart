@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/feed_screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   int _seletedIndex = 0;
 
   static List<Widget> _screens = <Widget>[
+    FeedScreen(),
     Container(
       color: Colors.amberAccent,
     ),
