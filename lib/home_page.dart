@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/feed_screen.dart';
+import 'constants/screen_size.dart';
+import 'file:///C:/Users/write/AndroidStudioProjects/flutter_app2/lib/screens/feed_screen.dart';
+import 'package:flutter_app2/screens/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -35,16 +37,12 @@ class _HomePageState extends State<HomePage> {
     Container(
       color: Colors.greenAccent,
     ),
-    Container(
-      color: Colors.deepPurpleAccent,
-    ),
-    Container(
-      color: Colors.cyanAccent,
-    ),
+    ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    if (size == null) size = MediaQuery.of(context).size;
     return Scaffold(
       body: IndexedStack(
         index: _seletedIndex,

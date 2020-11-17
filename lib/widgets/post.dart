@@ -3,13 +3,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/constants/common_size.dart';
+import 'package:flutter_app2/constants/screen_size.dart';
 import 'package:flutter_app2/widgets/comment.dart';
 import 'package:flutter_app2/widgets/my_progress_indicator.dart';
 import 'package:flutter_app2/widgets/rounded_avatar.dart';
 
 class Post extends StatelessWidget {
   final int index;
-  Size size;
+
 
   Post(
     this.index, {
@@ -18,7 +19,7 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (size == null) size = MediaQuery.of(context).size;
+
 
     //핸드폰속에 이미지를 저장해 놓고 보여주기 때문에 렉이 없음 고로 사용
     return Column(
