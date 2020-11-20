@@ -5,6 +5,7 @@ import 'package:flutter_app2/constants/screen_size.dart';
 import 'package:flutter_app2/screens/profile_screen.dart';
 import 'package:flutter_app2/widgets/rounded_avatar.dart';
 
+//git test
 //setState로 값이 변경된걸 감지하면
 //앱 화면 다시 렌더링
 //statefulwidget 위젯으로 변경하고 나면 앱자체를 다시 시작해줘야됨.
