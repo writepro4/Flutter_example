@@ -5,8 +5,6 @@ import 'package:flutter_app2/constants/screen_size.dart';
 import 'package:flutter_app2/screens/profile_screen.dart';
 import 'package:flutter_app2/widgets/rounded_avatar.dart';
 
-
-//
 //setState로 값이 변경된걸 감지하면
 //앱 화면 다시 렌더링
 //statefulwidget 위젯으로 변경하고 나면 앱자체를 다시 시작해줘야됨.
@@ -19,10 +17,28 @@ class ProfileBody extends StatefulWidget {
   _ProfileBodyState createState() => _ProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+class _ProfileBodyState extends State<ProfileBody>
+    with SingleTickerProviderStateMixin {
   SelectedTab _selectedTab = SelectedTab.left;
   double _leftImagesPageMargin = 0;
   double _rightImagesPageMargin = size.width;
+  AnimationController _iconAnimationController;
+
+  //해당 state가 실행될때 실행
+  @override
+  void initState() {
+    _iconAnimationController =
+        AnimationController(vsync: this, duration: duration);
+
+    super.initState();
+  }
+
+  //해당 state가 버려질때 실행
+  @override
+  void dispose() {
+    _iconAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +111,15 @@ class _ProfileBodyState extends State<ProfileBody> {
           textAlign: TextAlign.center,
         )),
         IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: (){
+          icon: AnimatedIcon(
+            icon: AnimatedIcons.menu_close,
+            progress: _iconAnimationController,
+          ),
+          onPressed: () {
             widget.onMenuChanged();
+            _iconAnimationController.status == AnimationStatus.completed
+                ? _iconAnimationController.reverse()
+                : _iconAnimationController.forward();
           },
         )
       ],
