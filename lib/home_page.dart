@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/screens/camera_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -97,10 +98,11 @@ class _HomePageState extends State<HomePage> {
           label: 'Ok',
           onPressed: () {
             _key.currentState.hideCurrentSnackBar();
+            AppSettings.openAppSettings();
           },
         ),
       );
-      _key.currentState.hideCurrentSnackBar();
+      _key.currentState.showSnackBar(snackBar);
     }
   }
 
