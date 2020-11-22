@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/screens/camera_screen.dart';
 import 'constants/screen_size.dart';
 import 'file:///C:/Users/write/AndroidStudioProjects/flutter_app2/lib/screens/feed_screen.dart';
 import 'package:flutter_app2/screens/profile_screen.dart';
@@ -64,11 +65,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onBtnItemClick(int index) {
+    switch (index) {
+      case 2:
+        //카메라창은 아예 새로운 창으로 넘김
+        _openCamera();
+        break;
+
+      default:
+    }
+
     print(index);
     //setState로 상태 변화 알려줌
     setState(() {
       _seletedIndex = index;
     });
     _seletedIndex = index;
+  }
+
+  void _openCamera() {
+    //stack에 쌓여 Photo페이지에 백버튼 표시됨
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
   }
 }
