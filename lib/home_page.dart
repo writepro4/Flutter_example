@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int _seletedIndex = 0;
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   static List<Widget> _screens = <Widget>[
     FeedScreen(),
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (size == null) size = MediaQuery.of(context).size;
     return Scaffold(
+      key: _key,
       body: IndexedStack(
         index: _seletedIndex,
         children: _screens,
@@ -93,10 +95,12 @@ class _HomePageState extends State<HomePage> {
         content: Text('사진, 파일, 마이크 접근 허용해줘야 사용 가능'),
         action: SnackBarAction(
           label: 'Ok',
-          onPressed: () {},
+          onPressed: () {
+            _key.currentState.hideCurrentSnackBar();
+          },
         ),
       );
-      Scaffold.of(context).hideCurrentSnackBar();
+      _key.currentState.hideCurrentSnackBar();
     }
   }
 
