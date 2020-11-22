@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/screens/camera_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'constants/screen_size.dart';
 import 'file:///C:/Users/write/AndroidStudioProjects/flutter_app2/lib/screens/feed_screen.dart';
 import 'package:flutter_app2/screens/profile_screen.dart';
@@ -82,9 +83,32 @@ class _HomePageState extends State<HomePage> {
     _seletedIndex = index;
   }
 
-  void _openCamera() {
-    //stack에 쌓여 Photo페이지에 백버튼 표시됨
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+  void _openCamera() async {
+    if (await checkIfPermissionGranted(context))
+      //stack에 쌓여 Photo페이지에 백버튼 표시됨
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => CameraScreen()));
+    else {
+      SnackBar snackBar = SnackBar(
+        content: Text('사진, 파일, 마이크 접근 허용해줘야 사용 가능'),
+        action: SnackBarAction(
+          label: 'Ok',
+          onPressed: () {},
+        ),
+      );
+      Scaffold.of(context).hideCurrentSnackBar();
+    }
+  }
+
+  Future<bool> checkIfPermissionGranted(BuildContext context) async {
+    Map<Permission, PermissionStatus> statuses =
+        await [Permission.camera, Permission.microphone].request();
+    bool permitted = true;
+
+    statuses.forEach((permission, permissionStatus) {
+      if (!permissionStatus.isGranted) permitted = false;
+    });
+
+    return permitted;
   }
 }
