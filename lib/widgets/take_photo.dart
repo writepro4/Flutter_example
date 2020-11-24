@@ -4,6 +4,8 @@ import 'package:flutter_app2/constants/common_size.dart';
 import 'package:flutter_app2/constants/screen_size.dart';
 import 'package:flutter_app2/models/camera_state.dart';
 import 'package:flutter_app2/widgets/my_progress_indicator.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class TakePhoto extends StatefulWidget {
@@ -34,7 +36,11 @@ class _TakePhotoState extends State<TakePhoto> {
             ),
             Expanded(
               child: OutlineButton(
-                onPressed: () {},
+                onPressed: () {
+                  if(cameraState.isReadyToTakePhoto){
+                    _attempTakePhoto(cameraState);
+                  }
+                },
                 shape: CircleBorder(),
                 borderSide: BorderSide(color: Colors.black12, width: 20),
               ),
@@ -58,5 +64,17 @@ class _TakePhotoState extends State<TakePhoto> {
         ),
       ),
     );
+  }
+
+  void _attempTakePhoto(CameraState cameraState) async {
+    final String timeInMilli = DateTime.now().millisecondsSinceEpoch.toString();
+    try{
+      final path = join((await getTemporaryDirectory()).path, '$timeInMilli.png');
+
+      await cameraState.controller.takePicture(path);
+
+    }catch(e){
+      
+    }
   }
 }
