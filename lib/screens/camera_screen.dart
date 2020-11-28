@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/camera_state.dart';
 import 'package:flutter_app2/screens/profile_screen.dart';
+import 'package:flutter_app2/widgets/my_gallery.dart';
 import 'package:flutter_app2/widgets/take_photo.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -42,6 +43,7 @@ class _CameraScreenState extends State<CameraScreen> {
         body: PageView(
           controller: _pageController,
           children: [
+            MyGallery(),
             TakePhoto(),
             Container(
               color: Colors.amberAccent,
